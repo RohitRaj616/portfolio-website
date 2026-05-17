@@ -44,7 +44,7 @@
 
   /* ─── NAV ─── */
   nav {
-    position: fixed; top: 0; left: 0; right: 0; z-index: 200;
+    position: fixed; top: 0; left: 0; right: 0; z-index: 305;
     display: flex; align-items: center; justify-content: space-between;
     padding: 0 6%; height: 64px;
     background: rgba(12,10,8,0.92);
@@ -97,6 +97,7 @@
   .hamburger {
     display: none; flex-direction: column; gap: 5px;
     cursor: pointer; background: none; border: none; padding: 4px;
+    position: relative; z-index: 310;
   }
   .hamburger span { display: block; width: 22px; height: 1.5px; background: var(--text); transition: all 0.3s; }
   .hamburger.open span:nth-child(1) { transform: rotate(45deg) translate(4.5px,4.5px); }
@@ -104,12 +105,28 @@
   .hamburger.open span:nth-child(3) { transform: rotate(-45deg) translate(4.5px,-4.5px); }
 
   .mobile-nav {
-    display: none; position: fixed; top: 64px; left: 0; right: 0; z-index: 199;
-    background: var(--bg2); border-bottom: 1px solid var(--border);
-    padding: 1.5rem 6% 2rem; flex-direction: column; gap: 1.4rem;
+    display: none;
+    position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+    z-index: 300;
+    background: var(--bg);
+    padding: calc(64px + 2rem) 6% 2rem;
+    flex-direction: column; gap: 1.8rem;
+    overflow-y: auto;
+    opacity: 0;
+    transform: translateX(100%);
+    transition: opacity 0.3s ease, transform 0.3s ease;
   }
-  .mobile-nav.open { display: flex; }
-  .mobile-nav a { font-family: var(--font-mono); font-size: 0.75rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); text-decoration: none; }
+  .mobile-nav.open {
+    opacity: 1;
+    transform: translateX(0);
+  }
+  .mobile-nav a {
+    font-family: var(--font-mono); font-size: 0.9rem; letter-spacing: 0.12em;
+    text-transform: uppercase; color: var(--muted); text-decoration: none;
+    padding: 0.8rem 0; border-bottom: 1px solid var(--border2);
+    transition: color 0.2s;
+  }
+  .mobile-nav a:last-child { border-bottom: none; }
   .mobile-nav a:hover { color: var(--accent); }
 
   /* ─── MARQUEE ─── */
@@ -439,7 +456,7 @@
           <span class="italic-line">Raj.</span>
         </h1>
         <p class="hero-descriptor reveal reveal-delay-2">
-          Building real things with HTML, CSS, Python, and C/C++.
+          Building real things with HTML, CSS, JavaScript, and C/C++.
           Motivated, quick to learn, and looking for the right team
           to grow with.
         </p>
@@ -903,10 +920,21 @@
   const burger = document.getElementById('burger');
   const mobileNav = document.getElementById('mobileNav');
   burger.addEventListener('click', () => {
-    const open = mobileNav.classList.toggle('open');
-    burger.classList.toggle('open', open);
+    if (mobileNav.classList.contains('open')) {
+      closeMenu();
+    } else {
+      mobileNav.style.display = 'flex';
+      requestAnimationFrame(() => {
+        mobileNav.classList.add('open');
+        burger.classList.add('open');
+      });
+    }
   });
-  function closeMenu() { mobileNav.classList.remove('open'); burger.classList.remove('open'); }
+  function closeMenu() {
+    mobileNav.classList.remove('open');
+    burger.classList.remove('open');
+    setTimeout(() => { if (!mobileNav.classList.contains('open')) mobileNav.style.display = ''; }, 320);
+  }
 
   // Scroll reveal
   const reveals = document.querySelectorAll('.reveal');
