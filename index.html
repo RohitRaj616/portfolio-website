@@ -139,7 +139,9 @@
   /* ─── MARQUEE ─── */
   .marquee-wrap {
     position: fixed; bottom: 0; left: 0; right: 0; z-index: 50;
-    background: var(--accent); overflow: hidden; height: 32px; display: flex; align-items: center;
+    background: rgba(12, 10, 8, 0.82);
+  backdrop-filter: blur(10px);
+  border-top: 1px solid rgba(201,147,58,0.15); overflow: hidden; height: 32px; display: flex; align-items: center;
   }
   .marquee-track {
   display: flex;
@@ -991,6 +993,7 @@
   function gSA(n){_sA=n;var s=document.querySelector('.slides1');if(s)s.style.transform='translateX(-'+(n*20)+'%)';document.querySelectorAll('.pdotA').forEach(function(d,i){d.style.background=i===n?'#c9933a':'rgba(201,147,58,0.3)';});}
   function sPB(d){_sB=(_sB+d+4)%4;gSB(_sB);}
   function gSB(n){_sB=n;var s=document.querySelector('.slides2');if(s)s.style.transform='translateX(-'+(n*25)+'%)';document.querySelectorAll('.pdotB').forEach(function(d,i){d.style.background=i===n?'#c9933a':'rgba(201,147,58,0.3)';});}
+
 
 </script>
 </body>
