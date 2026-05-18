@@ -141,7 +141,16 @@
     position: fixed; bottom: 0; left: 0; right: 0; z-index: 50;
     background: var(--accent); overflow: hidden; height: 32px; display: flex; align-items: center;
   }
-  .marquee-track { display: flex; gap: 0; white-space: nowrap; animation: scroll-marquee 18s linear infinite; }
+  .marquee-track {
+  display: flex;
+  gap: 0;
+  white-space: nowrap;
+  animation: scroll-marquee 35s linear infinite;
+ }
+
+.marquee-track:hover {
+  animation-play-state: paused;
+ }
   .marquee-track span { font-family: var(--font-mono); font-size: 0.6rem; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: var(--bg); padding: 0 2.5rem; }
   .marquee-track span::after { content: '✦'; margin-left: 2.5rem; }
   @keyframes scroll-marquee { from{transform:translateX(0)} to{transform:translateX(-50%)} }
